@@ -4,7 +4,7 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.goods">
-	<resultMap id="goodsResult" type="goodsVO">
+	<resultMap id="goodsResult" type="GoodsVO">
 		<result property="goods_id" column="goods_id" />
 		<result property="goods_title" column="goods_title" />
 		<result property="goods_writer" column="goods_writer" />
