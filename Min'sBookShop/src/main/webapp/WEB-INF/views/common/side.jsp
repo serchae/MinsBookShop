@@ -8,8 +8,8 @@
 	
 <nav>
 <ul>
-<c:choose>
-<c:when test="${side_menu=='admin_mode' }">
+<c:choose><!-- 관리자 메뉴 표시 -->
+<c:when test="${side_menu=='admin_mode' }"><!-- 마이페이지 내용 표시 -->
    <li>
 		<H3>주요기능</H3>
 		<ul>
@@ -41,7 +41,7 @@
 		</ul>
 	</li>
 </c:when>
-<c:otherwise>
+<c:otherwise><!-- 그외 사용자메뉴(필요한 것) -->
 	<li>
 		<h3>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;국내외 도서</h3>
 		<ul>
