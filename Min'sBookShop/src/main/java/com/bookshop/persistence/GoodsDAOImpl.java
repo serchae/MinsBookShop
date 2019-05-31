@@ -29,7 +29,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 	}
 
 	@Override
-	public GoodsVO selectGoodsDatail(String goods_id) throws DataAccessException {
+	public GoodsVO selectGoodsDetail(String goods_id) throws DataAccessException {
 		// TODO Auto-generated method stub
 		return null;
 	}

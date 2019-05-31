@@ -10,45 +10,45 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bookshop.domain.GoodsVO;
+import com.bookshop.domain.ImageFileVO;
 import com.bookshop.persistence.GoodsDAO;
 
 @Service("goodsService")
 @Transactional(propagation=Propagation.REQUIRED)
-public class GoodsServiceImpl implements GoodsService {
-@Autowired
-GoodsDAO goodsDAO;
-
-public Map<String, List<GoodsVO>> listGoods() throws Exception{
-	Map<String, List<GoodsVO>> goodsMap=new HashMap<String, List<GoodsVO>>();
-	// new book, bestseller, steadyseller 조건으로 도서 정보를 조회
-	// hashmap에 저장 후 반환
-	List goodsList=goodsDAO.selectGoodsList("bestseller");
-	goodsMap.put("bestseller",goodsList);
+public class GoodsServiceImpl implements GoodsService{
+	@Autowired
+	GoodsDAO goodsDAO;
 	
-	goodsList=goodsDAO.selectGoodsList("newbook");
-	goodsMap.put("newbook",goodsList);
+	public Map<String,List<GoodsVO>> listGoods() throws Exception {
+		Map<String,List<GoodsVO>> goodsMap=new HashMap<String,List<GoodsVO>>();
+		List<GoodsVO> goodsList=goodsDAO.selectGoodsList("bestseller");
+		goodsMap.put("bestseller",goodsList);
+		goodsList=goodsDAO.selectGoodsList("newbook");
+		goodsMap.put("newbook",goodsList);
+		
+		goodsList=goodsDAO.selectGoodsList("steadyseller");
+		goodsMap.put("steadyseller",goodsList);
+		return goodsMap;
+	}
 	
-	goodsList=goodsDAO.selectGoodsList("steadyseller");
-	goodsMap.put("steadyseller",goodsList);
-	return goodsMap;
+	public Map goodsDetail(String _goods_id) throws Exception {
+		Map goodsMap=new HashMap();
+		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
+		goodsMap.put("goodsVO", goodsVO);
+		List<ImageFileVO> imageList =goodsDAO.selectGoodsDetailImage(_goods_id);
+		goodsMap.put("imageList", imageList);
+		return goodsMap;
+	}
 	
-}
-
-@Override
-public Map goodsDetail() {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-@Override
-public List<String> keywordSearch(String keyword) throws Exception {
-	// TODO Auto-generated method stub
-	return null;
-}
-
-@Override
-public List<GoodsVO> searchGoods(String searchWord) throws Exception {
-	// TODO Auto-generated method stub
-	return null;
-}
+	public List<String> keywordSearch(String keyword) throws Exception {
+		List<String> list=goodsDAO.selectKeywordSearch(keyword);
+		return list;
+	}
+	
+	public List<GoodsVO> searchGoods(String searchWord) throws Exception{
+		List goodsList=goodsDAO.selectGoodsBySearchWord(searchWord);
+		return goodsList;
+	}
+	
+	
 }
